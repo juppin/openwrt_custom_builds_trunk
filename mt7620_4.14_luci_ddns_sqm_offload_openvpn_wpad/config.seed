@@ -1,0 +1,59 @@
+CONFIG_TARGET_ramips=y
+CONFIG_TARGET_ramips_mt7620=y
+CONFIG_TARGET_ramips_mt7620_DEVICE_e1700=y
+CONFIG_DEVEL=y
+CONFIG_OPENVPN_mbedtls_ENABLE_DEF_AUTH=y
+CONFIG_OPENVPN_mbedtls_ENABLE_FRAGMENT=y
+CONFIG_OPENVPN_mbedtls_ENABLE_HTTP=y
+CONFIG_OPENVPN_mbedtls_ENABLE_LZ4=y
+CONFIG_OPENVPN_mbedtls_ENABLE_LZO=y
+CONFIG_OPENVPN_mbedtls_ENABLE_MULTIHOME=y
+CONFIG_OPENVPN_mbedtls_ENABLE_PF=y
+CONFIG_OPENVPN_mbedtls_ENABLE_PORT_SHARE=y
+CONFIG_OPENVPN_mbedtls_ENABLE_SERVER=y
+CONFIG_OPENVPN_mbedtls_ENABLE_SMALL=y
+CONFIG_OPENVPN_mbedtls_ENABLE_SOCKS=y
+CONFIG_PACKAGE_ddns-scripts=y
+CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
+CONFIG_PACKAGE_iptables-mod-ipopt=y
+CONFIG_PACKAGE_kmod-ifb=y
+CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
+CONFIG_PACKAGE_kmod-ipt-ipopt=y
+# CONFIG_PACKAGE_kmod-ppp is not set
+CONFIG_PACKAGE_kmod-sched-cake=y
+CONFIG_PACKAGE_kmod-sched-core=y
+CONFIG_PACKAGE_kmod-tun=y
+CONFIG_PACKAGE_libiwinfo-lua=y
+CONFIG_PACKAGE_liblua=y
+CONFIG_PACKAGE_liblzo=y
+CONFIG_PACKAGE_libmbedtls=y
+CONFIG_PACKAGE_libubus-lua=y
+CONFIG_PACKAGE_libuci-lua=y
+CONFIG_PACKAGE_lua=y
+CONFIG_PACKAGE_luci=y
+CONFIG_PACKAGE_luci-app-ddns=y
+CONFIG_PACKAGE_luci-app-firewall=y
+CONFIG_PACKAGE_luci-app-openvpn=y
+CONFIG_PACKAGE_luci-app-sqm=y
+CONFIG_PACKAGE_luci-base=y
+CONFIG_PACKAGE_luci-lib-ip=y
+CONFIG_PACKAGE_luci-lib-jsonc=y
+CONFIG_PACKAGE_luci-lib-nixio=y
+CONFIG_PACKAGE_luci-mod-admin-full=y
+CONFIG_PACKAGE_luci-proto-ipv6=y
+CONFIG_PACKAGE_luci-proto-ppp=y
+CONFIG_PACKAGE_luci-theme-bootstrap=y
+CONFIG_PACKAGE_openvpn-mbedtls=y
+# CONFIG_PACKAGE_ppp is not set
+CONFIG_PACKAGE_rpcd=y
+CONFIG_PACKAGE_rpcd-mod-rrdns=y
+CONFIG_PACKAGE_sqm-scripts=y
+CONFIG_PACKAGE_tc=y
+CONFIG_PACKAGE_uhttpd=y
+CONFIG_PACKAGE_uhttpd-mod-ubus=y
+CONFIG_PACKAGE_wpad=y
+# CONFIG_PACKAGE_wpad-mini is not set
+CONFIG_TARGET_OPTIMIZATION="-O3 -pipe -mno-branch-likely -mips32r2 -mtune=24kec"
+CONFIG_TARGET_OPTIONS=y
+# CONFIG_USE_MIPS16 is not set
+CONFIG_WPA_SUPPLICANT_INTERNAL=y
