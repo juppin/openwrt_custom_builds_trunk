@@ -22,6 +22,7 @@ CONFIG_OPENVPN_openssl_ENABLE_SOCKS=y
 CONFIG_PACKAGE_ddns-scripts=y
 CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
 CONFIG_PACKAGE_iptables-mod-ipopt=y
+CONFIG_PACKAGE_irqbalance=y
 CONFIG_PACKAGE_kmod-ifb=y
 CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
 CONFIG_PACKAGE_kmod-ipt-ipopt=y
