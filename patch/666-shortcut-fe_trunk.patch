@@ -1,6 +1,6 @@
-From b87b4734c6e56fa45ec612350e2aa480ed2d8dd6 Mon Sep 17 00:00:00 2001
-From: Pavel Kubelun <be.dissent@gmail.com>
-Date: Fri, 14 Jul 2017 15:38:47 -0400
+From e2cb548b48b001bba25da1dfddf1aecc3fa7a973 Mon Sep 17 00:00:00 2001
+From: Johann Neuhauser <johann@it-neuhauser.de>
+Date: Tue, 15 May 2018 10:39:07 +0200
 Subject: [PATCH] package: add Shortcut Forwarding Engine driver
 
 Add an opensource Qualcomm Shortcut FE driver.
@@ -55,6 +55,7 @@ Patches are taken from QSDK and that chromeos-3.18 repo and a bit
 adjusted.
 
 Signed-off-by: Pavel Kubelun <be.dissent@gmail.com>
+Signed-off-by: Johann Neuhauser <johann@it-neuhauser.de>
 ---
  package/kernel/shortcut-fe/Makefile                |  121 +
  package/kernel/shortcut-fe/src/Kconfig             |   14 +
@@ -75,10 +76,10 @@ Signed-off-by: Pavel Kubelun <be.dissent@gmail.com>
  ...patch-linux-kernel-to-support-shortcut-fe.patch |  145 +
  ...new-bridge-APIs-needed-for-network-HW-acc.patch |   74 +
  ...ntrack-events-support-multiple-registrant.patch |  318 ++
- ...patch-linux-kernel-to-support-shortcut-fe.patch |  140 +
- ...new-bridge-APIs-needed-for-network-HW-acc.patch |   74 +
- ...ntrack-events-support-multiple-registrant.patch |  345 ++
- 22 files changed, 12187 insertions(+)
+ ...patch-linux-kernel-to-support-shortcut-fe.patch |  129 +
+ ...new-bridge-APIs-needed-for-network-HW-acc.patch |   67 +
+ ...ntrack-events-support-multiple-registrant.patch |  330 ++
+ 22 files changed, 12154 insertions(+)
  create mode 100644 package/kernel/shortcut-fe/Makefile
  create mode 100644 package/kernel/shortcut-fe/src/Kconfig
  create mode 100644 package/kernel/shortcut-fe/src/Makefile
@@ -102,7 +103,7 @@ Signed-off-by: Pavel Kubelun <be.dissent@gmail.com>
 
 diff --git a/package/kernel/shortcut-fe/Makefile b/package/kernel/shortcut-fe/Makefile
 new file mode 100644
-index 00000000000..2849e58f6d8
+index 0000000000..2849e58f6d
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/Makefile
 @@ -0,0 +1,121 @@
@@ -229,7 +230,7 @@ index 00000000000..2849e58f6d8
 +
 diff --git a/package/kernel/shortcut-fe/src/Kconfig b/package/kernel/shortcut-fe/src/Kconfig
 new file mode 100644
-index 00000000000..487f1e065e0
+index 0000000000..487f1e065e
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/Kconfig
 @@ -0,0 +1,14 @@
@@ -249,7 +250,7 @@ index 00000000000..487f1e065e0
 +	  If unsure, say N.
 diff --git a/package/kernel/shortcut-fe/src/Makefile b/package/kernel/shortcut-fe/src/Makefile
 new file mode 100644
-index 00000000000..88d95d232e2
+index 0000000000..88d95d232e
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/Makefile
 @@ -0,0 +1,14 @@
@@ -269,7 +270,7 @@ index 00000000000..88d95d232e2
 +	sfe_cm.o
 diff --git a/package/kernel/shortcut-fe/src/README b/package/kernel/shortcut-fe/src/README
 new file mode 100644
-index 00000000000..1bf1cc25558
+index 0000000000..1bf1cc2555
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/README
 @@ -0,0 +1,122 @@
@@ -397,7 +398,7 @@ index 00000000000..1bf1cc25558
 +
 diff --git a/package/kernel/shortcut-fe/src/fast-classifier.c b/package/kernel/shortcut-fe/src/fast-classifier.c
 new file mode 100644
-index 00000000000..48a2d27f4d5
+index 0000000000..48a2d27f4d
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/fast-classifier.c
 @@ -0,0 +1,1892 @@
@@ -2295,7 +2296,7 @@ index 00000000000..48a2d27f4d5
 +
 diff --git a/package/kernel/shortcut-fe/src/fast-classifier.h b/package/kernel/shortcut-fe/src/fast-classifier.h
 new file mode 100644
-index 00000000000..6b7a18cf6a5
+index 0000000000..6b7a18cf6a
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/fast-classifier.h
 @@ -0,0 +1,57 @@
@@ -2358,7 +2359,7 @@ index 00000000000..6b7a18cf6a5
 +};
 diff --git a/package/kernel/shortcut-fe/src/nl_classifier_test.c b/package/kernel/shortcut-fe/src/nl_classifier_test.c
 new file mode 100644
-index 00000000000..639417964db
+index 0000000000..639417964d
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/nl_classifier_test.c
 @@ -0,0 +1,281 @@
@@ -2645,7 +2646,7 @@ index 00000000000..639417964db
 +}
 diff --git a/package/kernel/shortcut-fe/src/sfe.h b/package/kernel/shortcut-fe/src/sfe.h
 new file mode 100644
-index 00000000000..21a12755601
+index 0000000000..21a1275560
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/sfe.h
 @@ -0,0 +1,61 @@
@@ -2712,7 +2713,7 @@ index 00000000000..21a12755601
 +#endif
 diff --git a/package/kernel/shortcut-fe/src/sfe_backport.h b/package/kernel/shortcut-fe/src/sfe_backport.h
 new file mode 100644
-index 00000000000..b24f6e67e6c
+index 0000000000..b24f6e67e6
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/sfe_backport.h
 @@ -0,0 +1,138 @@
@@ -2856,7 +2857,7 @@ index 00000000000..b24f6e67e6c
 +	hash_for_each(name, bkt, obj, member)
 diff --git a/package/kernel/shortcut-fe/src/sfe_cm.c b/package/kernel/shortcut-fe/src/sfe_cm.c
 new file mode 100644
-index 00000000000..6d3e21085ab
+index 0000000000..6d3e21085a
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/sfe_cm.c
 @@ -0,0 +1,1203 @@
@@ -4065,7 +4066,7 @@ index 00000000000..6d3e21085ab
 +
 diff --git a/package/kernel/shortcut-fe/src/sfe_cm.h b/package/kernel/shortcut-fe/src/sfe_cm.h
 new file mode 100644
-index 00000000000..6f2a819d125
+index 0000000000..6f2a819d12
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/sfe_cm.h
 @@ -0,0 +1,222 @@
@@ -4293,7 +4294,7 @@ index 00000000000..6f2a819d125
 +}
 diff --git a/package/kernel/shortcut-fe/src/sfe_ipv4.c b/package/kernel/shortcut-fe/src/sfe_ipv4.c
 new file mode 100644
-index 00000000000..34ed09b58a0
+index 0000000000..34ed09b58a
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/sfe_ipv4.c
 @@ -0,0 +1,3369 @@
@@ -7668,7 +7669,7 @@ index 00000000000..34ed09b58a0
 +
 diff --git a/package/kernel/shortcut-fe/src/sfe_ipv6.c b/package/kernel/shortcut-fe/src/sfe_ipv6.c
 new file mode 100644
-index 00000000000..16f460723aa
+index 0000000000..16f460723a
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/sfe_ipv6.c
 @@ -0,0 +1,3361 @@
@@ -11035,7 +11036,7 @@ index 00000000000..16f460723aa
 +
 diff --git a/package/kernel/shortcut-fe/src/userspace_example.c b/package/kernel/shortcut-fe/src/userspace_example.c
 new file mode 100644
-index 00000000000..8bdd4670cd8
+index 0000000000..8bdd4670cd
 --- /dev/null
 +++ b/package/kernel/shortcut-fe/src/userspace_example.c
 @@ -0,0 +1,232 @@
@@ -11272,10 +11273,10 @@ index 00000000000..8bdd4670cd8
 +	return 0;
 +}
 diff --git a/target/linux/generic/config-4.4 b/target/linux/generic/config-4.4
-index 1c0af9597fd..980a7871e8d 100644
+index d29f27d747..fe10634c37 100644
 --- a/target/linux/generic/config-4.4
 +++ b/target/linux/generic/config-4.4
-@@ -2682,6 +2682,7 @@ CONFIG_NFS_V3=y
+@@ -2684,6 +2684,7 @@ CONFIG_NFS_V3=y
  # CONFIG_NFT_DUP_IPV6 is not set
  # CONFIG_NF_CONNTRACK is not set
  # CONFIG_NF_CONNTRACK_AMANDA is not set
@@ -11283,7 +11284,7 @@ index 1c0af9597fd..980a7871e8d 100644
  # CONFIG_NF_CONNTRACK_EVENTS is not set
  # CONFIG_NF_CONNTRACK_FTP is not set
  # CONFIG_NF_CONNTRACK_H323 is not set
-@@ -3650,6 +3651,7 @@ CONFIG_SHMEM=y
+@@ -3652,6 +3653,7 @@ CONFIG_SHMEM=y
  # CONFIG_SH_ETH is not set
  # CONFIG_SH_TIMER_CMT is not set
  # CONFIG_SH_TIMER_MTU2 is not set
@@ -11292,10 +11293,10 @@ index 1c0af9597fd..980a7871e8d 100644
  # CONFIG_SI7005 is not set
  # CONFIG_SI7020 is not set
 diff --git a/target/linux/generic/config-4.9 b/target/linux/generic/config-4.9
-index 24bbbc05878..1b1df923ee3 100644
+index 1cc607d4dd..12f55236f7 100644
 --- a/target/linux/generic/config-4.9
 +++ b/target/linux/generic/config-4.9
-@@ -2951,6 +2951,7 @@ CONFIG_NFS_V3=y
+@@ -2971,6 +2971,7 @@ CONFIG_NFS_V3=y
  # CONFIG_NFT_DUP_IPV6 is not set
  # CONFIG_NF_CONNTRACK is not set
  # CONFIG_NF_CONNTRACK_AMANDA is not set
@@ -11303,7 +11304,7 @@ index 24bbbc05878..1b1df923ee3 100644
  # CONFIG_NF_CONNTRACK_EVENTS is not set
  # CONFIG_NF_CONNTRACK_FTP is not set
  # CONFIG_NF_CONNTRACK_H323 is not set
-@@ -3981,6 +3982,7 @@ CONFIG_SHMEM=y
+@@ -4007,6 +4008,7 @@ CONFIG_SHMEM=y
  # CONFIG_SH_TIMER_CMT is not set
  # CONFIG_SH_TIMER_MTU2 is not set
  # CONFIG_SH_TIMER_TMU is not set
@@ -11313,7 +11314,7 @@ index 24bbbc05878..1b1df923ee3 100644
  # CONFIG_SI7020 is not set
 diff --git a/target/linux/generic/hack-4.4/950-net-patch-linux-kernel-to-support-shortcut-fe.patch b/target/linux/generic/hack-4.4/950-net-patch-linux-kernel-to-support-shortcut-fe.patch
 new file mode 100644
-index 00000000000..a410015e2e9
+index 0000000000..a410015e2e
 --- /dev/null
 +++ b/target/linux/generic/hack-4.4/950-net-patch-linux-kernel-to-support-shortcut-fe.patch
 @@ -0,0 +1,145 @@
@@ -11464,7 +11465,7 @@ index 00000000000..a410015e2e9
 +
 diff --git a/target/linux/generic/hack-4.4/951-bridge-Add-new-bridge-APIs-needed-for-network-HW-acc.patch b/target/linux/generic/hack-4.4/951-bridge-Add-new-bridge-APIs-needed-for-network-HW-acc.patch
 new file mode 100644
-index 00000000000..31531432799
+index 0000000000..3153143279
 --- /dev/null
 +++ b/target/linux/generic/hack-4.4/951-bridge-Add-new-bridge-APIs-needed-for-network-HW-acc.patch
 @@ -0,0 +1,74 @@
@@ -11544,7 +11545,7 @@ index 00000000000..31531432799
 +
 diff --git a/target/linux/generic/hack-4.4/952-net-conntrack-events-support-multiple-registrant.patch b/target/linux/generic/hack-4.4/952-net-conntrack-events-support-multiple-registrant.patch
 new file mode 100644
-index 00000000000..54e7c07b813
+index 0000000000..54e7c07b81
 --- /dev/null
 +++ b/target/linux/generic/hack-4.4/952-net-conntrack-events-support-multiple-registrant.patch
 @@ -0,0 +1,318 @@
@@ -11868,10 +11869,10 @@ index 00000000000..54e7c07b813
 +
 diff --git a/target/linux/generic/hack-4.9/950-net-patch-linux-kernel-to-support-shortcut-fe.patch b/target/linux/generic/hack-4.9/950-net-patch-linux-kernel-to-support-shortcut-fe.patch
 new file mode 100644
-index 00000000000..e7844effdf9
+index 0000000000..417973dcee
 --- /dev/null
 +++ b/target/linux/generic/hack-4.9/950-net-patch-linux-kernel-to-support-shortcut-fe.patch
-@@ -0,0 +1,140 @@
+@@ -0,0 +1,129 @@
 +From 5c43b9811dd88dd2d18d88a253212474bb665896 Mon Sep 17 00:00:00 2001
 +From: Xiaoping Fan <xfan@codeaurora.org>
 +Date: Fri, 26 Feb 2016 15:01:53 -0800
@@ -11898,8 +11899,6 @@ index 00000000000..e7844effdf9
 + net/netfilter/nf_conntrack_proto_tcp.c | 10 ++++++++++
 + 4 files changed, 41 insertions(+)
 +
-+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-+index 9a0c945..56f4007 100644
 +--- a/include/linux/skbuff.h
 ++++ b/include/linux/skbuff.h
 +@@ -738,6 +738,9 @@ struct sk_buff {
@@ -11912,8 +11911,6 @@ index 00000000000..e7844effdf9
 + 	__u8			remcsum_offload:1;
 + #ifdef CONFIG_NET_SWITCHDEV
 + 	__u8			offload_fwd_mark:1;
-+diff --git a/net/Kconfig b/net/Kconfig
-+index b4621e1..6ba72cf 100644
 +--- a/net/Kconfig
 ++++ b/net/Kconfig
 +@@ -444,3 +444,6 @@ config HAVE_CBPF_JIT
@@ -11923,11 +11920,9 @@ index 00000000000..e7844effdf9
 ++
 ++config SHORTCUT_FE
 ++	bool "Enables kernel network stack path for Shortcut Forwarding Engine"
-+diff --git a/net/core/dev.c b/net/core/dev.c
-+index ca39cd2..74cd937 100644
 +--- a/net/core/dev.c
 ++++ b/net/core/dev.c
-+@@ -2929,8 +2929,17 @@ static int xmit_one(struct sk_buff *skb, struct net_device *dev,
++@@ -2947,8 +2947,17 @@ static int xmit_one(struct sk_buff *skb,
 + 	unsigned int len;
 + 	int rc;
 + 
@@ -11945,7 +11940,7 @@ index 00000000000..e7844effdf9
 + 
 + #ifdef CONFIG_ETHERNET_PACKET_MANGLE
 + 	if (!dev->eth_mangle_tx ||
-+@@ -4061,6 +4070,11 @@ void netdev_rx_handler_unregister(struct net_device *dev)
++@@ -4098,6 +4107,11 @@ void netdev_rx_handler_unregister(struct
 + }
 + EXPORT_SYMBOL_GPL(netdev_rx_handler_unregister);
 + 
@@ -11957,7 +11952,7 @@ index 00000000000..e7844effdf9
 + /*
 +  * Limit the use of PFMEMALLOC reserves to those protocols that implement
 +  * the special handling of PFMEMALLOC skbs.
-+@@ -4108,6 +4122,9 @@ static int __netif_receive_skb_core(struct sk_buff *skb, bool pfmemalloc)
++@@ -4145,6 +4159,9 @@ static int __netif_receive_skb_core(stru
 + 	bool deliver_exact = false;
 + 	int ret = NET_RX_DROP;
 + 	__be16 type;
@@ -11967,7 +11962,7 @@ index 00000000000..e7844effdf9
 + 
 + 	net_timestamp_check(!netdev_tstamp_prequeue, skb);
 + 
-+@@ -4134,6 +4151,14 @@ static int __netif_receive_skb_core(struct sk_buff *skb, bool pfmemalloc)
++@@ -4171,6 +4188,14 @@ another_round:
 + 			goto out;
 + 	}
 + 
@@ -11982,8 +11977,6 @@ index 00000000000..e7844effdf9
 + #ifdef CONFIG_NET_CLS_ACT
 + 	if (skb->tc_verd & TC_NCLS) {
 + 		skb->tc_verd = CLR_TC_NCLS(skb->tc_verd);
-+diff --git a/net/netfilter/nf_conntrack_proto_tcp.c b/net/netfilter/nf_conntrack_proto_tcp.c
-+index f24b626..4581481 100644
 +--- a/net/netfilter/nf_conntrack_proto_tcp.c
 ++++ b/net/netfilter/nf_conntrack_proto_tcp.c
 +@@ -34,12 +34,22 @@
@@ -12009,15 +12002,12 @@ index 00000000000..e7844effdf9
 + 
 + /* If it is set to zero, we disable picking up already established
 +    connections. */
-+-- 
-+2.7.4
-+
 diff --git a/target/linux/generic/hack-4.9/951-bridge-Add-new-bridge-APIs-needed-for-network-HW-acc.patch b/target/linux/generic/hack-4.9/951-bridge-Add-new-bridge-APIs-needed-for-network-HW-acc.patch
 new file mode 100644
-index 00000000000..5cc7dabad7b
+index 0000000000..13669c4d0a
 --- /dev/null
 +++ b/target/linux/generic/hack-4.9/951-bridge-Add-new-bridge-APIs-needed-for-network-HW-acc.patch
-@@ -0,0 +1,74 @@
+@@ -0,0 +1,67 @@
 +From cdabe46cd62d22266aed7fdae36f72a36e3558e7 Mon Sep 17 00:00:00 2001
 +From: Murat Sezgin <msezgin@codeaurora.org>
 +Date: Tue, 25 Nov 2014 17:22:24 -0800
@@ -12044,8 +12034,6 @@ index 00000000000..5cc7dabad7b
 + net/bridge/br_if.c        | 25 +++++++++++++++++++++++++
 + 2 files changed, 26 insertions(+)
 +
-+diff --git a/include/linux/if_bridge.h b/include/linux/if_bridge.h
-+index 0911c8c..4473f62 100644
 +--- a/include/linux/if_bridge.h
 ++++ b/include/linux/if_bridge.h
 +@@ -52,6 +52,7 @@ struct br_ip_list {
@@ -12056,11 +12044,9 @@ index 00000000000..5cc7dabad7b
 + 
 + typedef int br_should_route_hook_t(struct sk_buff *skb);
 + extern br_should_route_hook_t __rcu *br_should_route_hook;
-+diff --git a/net/bridge/br_if.c b/net/bridge/br_if.c
-+index ed0dd33..342b2d9 100644
 +--- a/net/bridge/br_if.c
 ++++ b/net/bridge/br_if.c
-+@@ -655,3 +655,28 @@ void br_port_flags_change(struct net_bridge_port *p, unsigned long mask)
++@@ -655,3 +655,28 @@ void br_port_flags_change(struct net_bri
 + 	if (mask & BR_AUTO_MASK)
 + 		nbp_update_port_count(br);
 + }
@@ -12089,15 +12075,12 @@ index 00000000000..5cc7dabad7b
 ++		u64_stats_update_end(&stats->syncp);
 ++}
 ++EXPORT_SYMBOL_GPL(br_dev_update_stats);
-+-- 
-+2.7.4
-+
 diff --git a/target/linux/generic/hack-4.9/952-net-conntrack-events-support-multiple-registrant.patch b/target/linux/generic/hack-4.9/952-net-conntrack-events-support-multiple-registrant.patch
 new file mode 100644
-index 00000000000..a898c4a695d
+index 0000000000..41fec931ac
 --- /dev/null
 +++ b/target/linux/generic/hack-4.9/952-net-conntrack-events-support-multiple-registrant.patch
-@@ -0,0 +1,345 @@
+@@ -0,0 +1,330 @@
 +From 56294a39f14712f868a495f28be6b2e92f0a48c6 Mon Sep 17 00:00:00 2001
 +From: Zhi Chen <zhichen@codeaurora.org>
 +Date: Tue, 13 Jan 2015 14:28:18 -0800
@@ -12120,8 +12103,6 @@ index 00000000000..a898c4a695d
 + net/netfilter/nf_conntrack_netlink.c        | 19 ++++++
 + 6 files changed, 139 insertions(+), 1 deletion(-)
 +
-+diff --git a/include/net/netfilter/nf_conntrack_ecache.h b/include/net/netfilter/nf_conntrack_ecache.h
-+index 12d967b..c2b98b6 100644
 +--- a/include/net/netfilter/nf_conntrack_ecache.h
 ++++ b/include/net/netfilter/nf_conntrack_ecache.h
 +@@ -70,6 +70,10 @@ struct nf_ct_event {
@@ -12135,7 +12116,7 @@ index 00000000000..a898c4a695d
 + struct nf_ct_event_notifier {
 + 	int (*fcn)(unsigned int events, struct nf_ct_event *item);
 + };
-+@@ -78,6 +82,7 @@ int nf_conntrack_register_notifier(struct net *net,
++@@ -78,6 +82,7 @@ int nf_conntrack_register_notifier(struc
 + 				   struct nf_ct_event_notifier *nb);
 + void nf_conntrack_unregister_notifier(struct net *net,
 + 				      struct nf_ct_event_notifier *nb);
@@ -12143,7 +12124,7 @@ index 00000000000..a898c4a695d
 + 
 + void nf_ct_deliver_cached_events(struct nf_conn *ct);
 + int nf_conntrack_eventmask_report(unsigned int eventmask, struct nf_conn *ct,
-+@@ -86,11 +91,13 @@ int nf_conntrack_eventmask_report(unsigned int eventmask, struct nf_conn *ct,
++@@ -86,11 +91,13 @@ int nf_conntrack_eventmask_report(unsign
 + static inline void
 + nf_conntrack_event_cache(enum ip_conntrack_events event, struct nf_conn *ct)
 + {
@@ -12171,7 +12152,7 @@ index 00000000000..a898c4a695d
 + 
 + 	return nf_conntrack_eventmask_report(1 << event, ct, portid, report);
 + }
-+@@ -114,10 +123,12 @@ nf_conntrack_event_report(enum ip_conntrack_events event, struct nf_conn *ct,
++@@ -114,10 +123,12 @@ nf_conntrack_event_report(enum ip_conntr
 + static inline int
 + nf_conntrack_event(enum ip_conntrack_events event, struct nf_conn *ct)
 + {
@@ -12184,8 +12165,6 @@ index 00000000000..a898c4a695d
 + 
 + 	return nf_conntrack_eventmask_report(1 << event, ct, 0, 0);
 + }
-+diff --git a/include/net/netns/conntrack.h b/include/net/netns/conntrack.h
-+index e469e85..1d31db8 100644
 +--- a/include/net/netns/conntrack.h
 ++++ b/include/net/netns/conntrack.h
 +@@ -86,7 +86,11 @@ struct netns_ct {
@@ -12200,8 +12179,6 @@ index 00000000000..a898c4a695d
 + 	struct nf_exp_event_notifier __rcu *nf_expect_event_cb;
 + 	struct nf_ip_net	nf_ct_proto;
 + #if defined(CONFIG_NF_CONNTRACK_LABELS)
-+diff --git a/net/netfilter/Kconfig b/net/netfilter/Kconfig
-+index 63073be..08d7aab 100644
 +--- a/net/netfilter/Kconfig
 ++++ b/net/netfilter/Kconfig
 +@@ -136,6 +136,14 @@ config NF_CONNTRACK_TIMEOUT
@@ -12219,11 +12196,9 @@ index 00000000000..a898c4a695d
 + config NF_CONNTRACK_TIMESTAMP
 + 	bool  'Connection tracking timestamping'
 + 	depends on NETFILTER_ADVANCED
-+diff --git a/net/netfilter/nf_conntrack_core.c b/net/netfilter/nf_conntrack_core.c
-+index 6bd1508..9b81c7c 100644
 +--- a/net/netfilter/nf_conntrack_core.c
 ++++ b/net/netfilter/nf_conntrack_core.c
-+@@ -1998,6 +1998,10 @@ int nf_conntrack_init_net(struct net *net)
++@@ -2023,6 +2023,10 @@ int nf_conntrack_init_net(struct net *ne
 + 	ret = nf_conntrack_proto_pernet_init(net);
 + 	if (ret < 0)
 + 		goto err_proto;
@@ -12234,8 +12209,6 @@ index 00000000000..a898c4a695d
 + 	return 0;
 + 
 + err_proto:
-+diff --git a/net/netfilter/nf_conntrack_ecache.c b/net/netfilter/nf_conntrack_ecache.c
-+index da9df2d..e0e2a8f 100644
 +--- a/net/netfilter/nf_conntrack_ecache.c
 ++++ b/net/netfilter/nf_conntrack_ecache.c
 +@@ -18,6 +18,9 @@
@@ -12248,7 +12221,7 @@ index 00000000000..a898c4a695d
 + #include <linux/kernel.h>
 + #include <linux/netdevice.h>
 + #include <linux/slab.h>
-+@@ -117,6 +120,38 @@ static void ecache_work(struct work_struct *work)
++@@ -117,6 +120,38 @@ static void ecache_work(struct work_stru
 + 		schedule_delayed_work(&ctnet->ecache_dwork, delay);
 + }
 + 
@@ -12287,7 +12260,7 @@ index 00000000000..a898c4a695d
 + int nf_conntrack_eventmask_report(unsigned int eventmask, struct nf_conn *ct,
 + 				  u32 portid, int report)
 + {
-+@@ -171,10 +206,52 @@ int nf_conntrack_eventmask_report(unsigned int eventmask, struct nf_conn *ct,
++@@ -171,10 +206,52 @@ out_unlock:
 + 	rcu_read_unlock();
 + 	return ret;
 + }
@@ -12340,7 +12313,7 @@ index 00000000000..a898c4a695d
 + void nf_ct_deliver_cached_events(struct nf_conn *ct)
 + {
 + 	struct net *net = nf_ct_net(ct);
-+@@ -225,6 +302,7 @@ void nf_ct_deliver_cached_events(struct nf_conn *ct)
++@@ -225,6 +302,7 @@ void nf_ct_deliver_cached_events(struct
 + out_unlock:
 + 	rcu_read_unlock();
 + }
@@ -12348,7 +12321,7 @@ index 00000000000..a898c4a695d
 + EXPORT_SYMBOL_GPL(nf_ct_deliver_cached_events);
 + 
 + void nf_ct_expect_event_report(enum ip_conntrack_expect_events event,
-+@@ -257,6 +335,12 @@ void nf_ct_expect_event_report(enum ip_conntrack_expect_events event,
++@@ -257,6 +335,12 @@ out_unlock:
 + 	rcu_read_unlock();
 + }
 + 
@@ -12361,7 +12334,7 @@ index 00000000000..a898c4a695d
 + int nf_conntrack_register_notifier(struct net *net,
 + 				   struct nf_ct_event_notifier *new)
 + {
-+@@ -277,8 +361,15 @@ int nf_conntrack_register_notifier(struct net *net,
++@@ -277,8 +361,15 @@ out_unlock:
 + 	mutex_unlock(&nf_ct_ecache_mutex);
 + 	return ret;
 + }
@@ -12377,16 +12350,14 @@ index 00000000000..a898c4a695d
 + void nf_conntrack_unregister_notifier(struct net *net,
 + 				      struct nf_ct_event_notifier *new)
 + {
-+@@ -291,6 +382,7 @@ void nf_conntrack_unregister_notifier(struct net *net,
-+ 	RCU_INIT_POINTER(net->ct.nf_conntrack_event_cb, NULL);
++@@ -292,6 +383,7 @@ void nf_conntrack_unregister_notifier(st
 + 	mutex_unlock(&nf_ct_ecache_mutex);
++ 	/* synchronize_rcu() is called from ctnetlink_exit. */
 + }
 ++#endif
 + EXPORT_SYMBOL_GPL(nf_conntrack_unregister_notifier);
 + 
 + int nf_ct_expect_register_notifier(struct net *net,
-+diff --git a/net/netfilter/nf_conntrack_netlink.c b/net/netfilter/nf_conntrack_netlink.c
-+index 04111c1..8c741f7 100644
 +--- a/net/netfilter/nf_conntrack_netlink.c
 ++++ b/net/netfilter/nf_conntrack_netlink.c
 +@@ -28,6 +28,11 @@
@@ -12401,7 +12372,7 @@ index 00000000000..a898c4a695d
 + #include <linux/slab.h>
 + 
 + #include <linux/netfilter.h>
-+@@ -615,14 +620,22 @@ static size_t ctnetlink_nlmsg_size(const struct nf_conn *ct)
++@@ -615,14 +620,22 @@ static size_t ctnetlink_nlmsg_size(const
 + 	       ;
 + }
 + 
@@ -12424,7 +12395,7 @@ index 00000000000..a898c4a695d
 + 	struct nf_conn *ct = item->ct;
 + 	struct sk_buff *skb;
 + 	unsigned int type;
-+@@ -3260,9 +3273,15 @@ static int ctnetlink_stat_exp_cpu(struct net *net, struct sock *ctnl,
++@@ -3264,9 +3277,15 @@ static int ctnetlink_stat_exp_cpu(struct
 + }
 + 
 + #ifdef CONFIG_NF_CONNTRACK_EVENTS
@@ -12440,6 +12411,6 @@ index 00000000000..a898c4a695d
 + 
 + static struct nf_exp_event_notifier ctnl_notifier_exp = {
 + 	.fcn = ctnetlink_expect_event,
-+-- 
-+2.7.4
-+
+-- 
+2.11.0
+
