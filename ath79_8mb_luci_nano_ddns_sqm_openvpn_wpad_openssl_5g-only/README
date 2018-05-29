@@ -1,0 +1,5 @@
+EXPERIMENTAL ATH79 BUILD !!!         
+
+Only 5g wireless due to no shared interrupt handler.
+
+Please report issues...
