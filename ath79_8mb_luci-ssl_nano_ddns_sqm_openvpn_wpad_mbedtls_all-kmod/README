@@ -1,0 +1,29 @@
+Currently full working and supported device images:
+  Tested by me on my own devices:
+
+  - TP-Link WDR4300
+  - TP-Link WDR3600
+  - TP-Link WR1043 V2
+  - TP-Link WR1043 V3
+  - TP-Link WR1043 V4
+
+
+Included packages (build with: -O2 -nomips16):
+  - luci-ssl + luci-theme-material + luci-theme-bootstarp
+  - luci-app-sqm + sqm
+  - luci-app-ddns + ddns-scripts
+  - luci-app-openvpn + openvpn-mbedtls
+  - wpad
+  - nano
+
+luci is minified with closure-compiler and yuicompressor.
+
+If you need other packages, install it simply with opkg.
+I´ve uploaded all target specific packages to my own server and included this target repo and public key into the images.
+All other generic packages are downloaded from openwrt.org.
+Therefore you and i are able to install ALL packages through opkg.
+
+
+Mirror for images and packages:
+
+  https://openwrt.it-neuhauser.de/
