@@ -1,14 +1,22 @@
 CONFIG_TARGET_ath79=y
 CONFIG_TARGET_ath79_generic=y
 CONFIG_TARGET_MULTI_PROFILE=y
+CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_tl-archer-c7-v2=y
+CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_tl-archer-c7-v2=""
 CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_tl-wdr3600=y
+CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_tl-wdr3600=""
 CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_tl-wdr4300=y
+CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_tl-wdr4300=""
 CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_tl-wr1043nd-v2=y
+CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_tl-wr1043nd-v2=""
 CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_tl-wr1043nd-v3=y
+CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_tl-wr1043nd-v3=""
 CONFIG_TARGET_DEVICE_ath79_generic_DEVICE_tl-wr1043nd-v4=y
+CONFIG_TARGET_DEVICE_PACKAGES_ath79_generic_DEVICE_tl-wr1043nd-v4=""
 CONFIG_ALL_KMODS=y
 CONFIG_ALL_NONSHARED=y
 CONFIG_DEVEL=y
+CONFIG_TARGET_PER_DEVICE_ROOTFS=y
 CONFIG_OPENVPN_mbedtls_ENABLE_DEF_AUTH=y
 CONFIG_OPENVPN_mbedtls_ENABLE_FRAGMENT=y
 CONFIG_OPENVPN_mbedtls_ENABLE_HTTP=y
@@ -26,15 +34,9 @@ CONFIG_PACKAGE_iptables-mod-ipopt=y
 CONFIG_PACKAGE_kmod-ifb=y
 CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
 CONFIG_PACKAGE_kmod-ipt-ipopt=y
-CONFIG_PACKAGE_kmod-nls-base=m
-CONFIG_PACKAGE_kmod-phy-ath79-usb=m
 CONFIG_PACKAGE_kmod-sched-cake=y
 CONFIG_PACKAGE_kmod-sched-core=y
 CONFIG_PACKAGE_kmod-tun=y
-CONFIG_PACKAGE_kmod-usb-core=m
-CONFIG_PACKAGE_kmod-usb-ehci=m
-CONFIG_PACKAGE_kmod-usb-ledtrig-usbport=m
-CONFIG_PACKAGE_kmod-usb2=m
 CONFIG_PACKAGE_libiwinfo-lua=y
 CONFIG_PACKAGE_liblua=y
 CONFIG_PACKAGE_liblucihttp=y
@@ -59,7 +61,6 @@ CONFIG_PACKAGE_luci-proto-ipv6=y
 CONFIG_PACKAGE_luci-proto-ppp=y
 CONFIG_PACKAGE_luci-ssl=y
 CONFIG_PACKAGE_luci-theme-bootstrap=y
-CONFIG_PACKAGE_luci-theme-material=y
 CONFIG_PACKAGE_nano=y
 CONFIG_PACKAGE_openvpn-mbedtls=y
 CONFIG_PACKAGE_px5g-mbedtls=y
@@ -72,7 +73,7 @@ CONFIG_PACKAGE_uhttpd=y
 CONFIG_PACKAGE_uhttpd-mod-ubus=y
 # CONFIG_PACKAGE_usbip is not set
 CONFIG_PACKAGE_wpad=y
-# CONFIG_PACKAGE_wpad-mini is not set
+CONFIG_PACKAGE_wpad-mini=m
 CONFIG_TARGET_OPTIMIZATION="-O2 -pipe -mno-branch-likely -mips32r2 -mtune=24kc"
 CONFIG_TARGET_OPTIONS=y
 # CONFIG_USE_MIPS16 is not set
