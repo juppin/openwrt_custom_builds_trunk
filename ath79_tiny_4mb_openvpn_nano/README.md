@@ -1,4 +1,4 @@
-This are stipped down OpenWrt builds for ath79 devices with 4MB flash and 32MB ram.
+This are stripped down OpenWrt builds for ath79 devices with 4MB flash and 32MB ram.
 
 Included packages:
 - openvpn-mbedtls
